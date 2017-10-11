@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Functions</name>
+    <events>
+        <event-block sid="1112195883944036">
+            <conditions>
+                <condition id="0" name="On function" sid="1319089802371755" type="Function">
+                    <param id="0" name="Name">&quot;SpawnEnemies&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-3" name="Create object" sid="4689672200121995" type="System">
+                    <param id="0" name="Object to create">EnemyShadow</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="X">ViewportRight(1) + 10.</param>
+                    <param id="3" name="Y">random(390, 450)</param>
+                </action>
+                <action id="0" name="Spawn another object" sid="8589997477418059" type="EnemyShadow">
+                    <param id="0" name="Object">AIEnemy</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="Image point">0</param>
+                </action>
+                <action id="-12" name="Set group active" sid="7181429877772962" type="System">
+                    <param id="0" name="Group name">&quot;AI Events&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" sid="6423144722685404" type="AIEnemy">
+                    <param id="0" name="Pin to">EnemyShadow</param>
+                    <param id="1" name="Mode">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="4918528360895298">
+            <conditions>
+                <condition id="0" name="On function" sid="3854217597244736" type="Function">
+                    <param id="0" name="Name">&quot;DestroyEnemy&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="5" name="Accelerate toward position" sid="1078142077280707" type="EnemyShadow">
+                    <param id="0" name="Acceleration">0</param>
+                    <param id="1" name="X">PlayerShadow.X</param>
+                    <param id="2" name="Y">PlayerShadow.Y</param>
+                </action>
+                <action behavior="CustomMovement" id="2" name="Set speed" sid="6910232758823192" type="EnemyShadow">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Speed">0</param>
+                </action>
+                <action id="-12" name="Subtract from" sid="5328194966664916" type="Player">
+                    <param id="0" name="Instance variable">Health</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="4" name="Set animation" sid="3965415771436495" type="Player">
+                    <param id="0" name="Animation">&quot;Idle&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="4" name="Set animation" sid="184176428509199" type="AIEnemy">
+                    <param id="0" name="Animation">&quot;Liedown&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action behavior="Fade" id="1" name="Start fade" sid="5316352380018809" type="AIEnemy" />
+                <action id="-12" name="Set group active" sid="8848124539945202" type="System">
+                    <param id="0" name="Group name">&quot;Camera&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" sid="9640057102966495" type="System">
+                    <param id="0" name="Group name">&quot;AI Events&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-9" name="Destroy" sid="9462239087304994" type="Wall" />
+                <action id="-9" name="Destroy" sid="3556070984768963" type="EnemyShadow" />
+            </actions>
+        </event-block>
+        <event-block sid="307445983206089">
+            <conditions>
+                <condition id="0" name="On function" sid="7844763813980057" type="Function">
+                    <param id="0" name="Name">&quot;RestartLevel&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-26" name="Restart layout" sid="702165043257966" type="System" />
+                <action id="-10" name="Set value" sid="107679534420481" type="Player">
+                    <param id="0" name="Instance variable">Health</param>
+                    <param id="1" name="Value">254</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

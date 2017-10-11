@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Game Events</name>
+    <events>
+        <include>Functions</include>
+        <event-block sid="9903262042579098">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="865231514601235" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Pin" id="0" name="Pin to object" sid="3569816972239552" type="Player">
+                    <param id="0" name="Pin to">PlayerShadow</param>
+                    <param id="1" name="Mode">1</param>
+                </action>
+                <action id="-9" name="Destroy" sid="4792181888286426" type="Wall" />
+                <action id="-9" name="Destroy" sid="8609229560264222" type="EnemyShadow" />
+                <action id="-9" name="Destroy" sid="6674899879593536" type="AIEnemy" />
+            </actions>
+        </event-block>
+        <event-block sid="108149906793846">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="3033666861154947" type="System" />
+            </conditions>
+            <actions>
+                <action id="-10" name="Set value" sid="6665076959159081" type="Player">
+                    <param id="0" name="Instance variable">Health</param>
+                    <param id="1" name="Value">Player.Health</param>
+                </action>
+                <action id="-5" name="Set width" sid="229516930187091" type="PlayerYellowHealthBar">
+                    <param id="0" name="Width">Player.Health</param>
+                </action>
+                <action behavior="CustomMovement" id="5" name="Accelerate toward position" sid="9417007880753937" type="EnemyShadow">
+                    <param id="0" name="Acceleration">1000</param>
+                    <param id="1" name="X">PlayerShadow.X</param>
+                    <param id="2" name="Y">PlayerShadow.Y</param>
+                </action>
+                <action behavior="CustomMovement" id="2" name="Set speed" sid="636173446147762" type="EnemyShadow">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Speed">30</param>
+                </action>
+                <action id="0" name="Set text" sid="3706616128025992" type="PlayerNameText">
+                    <param id="0" name="Text">&quot;Player&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="6274243836531847">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="83713149629647" type="PlayerShadow">
+                    <param id="0" name="Object">AreaCheck</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="519586377444386" type="AreaCheck" />
+                <action id="-3" name="Create object" sid="7814880730984566" type="System">
+                    <param id="0" name="Object to create">Wall</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="X">ViewportLeft(1)</param>
+                    <param id="3" name="Y">355</param>
+                </action>
+                <action id="-3" name="Create object" sid="5365812738818985" type="System">
+                    <param id="0" name="Object to create">Wall</param>
+                    <param id="1" name="Layer">1</param>
+                    <param id="2" name="X">ViewportRight(1)</param>
+                    <param id="3" name="Y">355</param>
+                </action>
+                <action id="-12" name="Set group active" sid="9689197007542369" type="System">
+                    <param id="0" name="Group name">&quot;Camera&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="0" name="Call function" sid="6636804159839557" type="Function">
+                    <param id="0" name="Name">&quot;SpawnEnemies&quot;</param>
+                    <param id="1" name="Parameter {n}"></param>
+                </action>
+            </actions>
+        </event-block>
+        <event-group description="" sid="8751804917480898" title="Camera">
+            <sub-events>
+                <event-block sid="9187545454099793">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="9222815093268946" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Set position" sid="7715425215064681" type="Camera">
+                            <param id="0" name="X">lerp(Self.X, Player.X, 0.02)</param>
+                            <param id="1" name="Y">lerp(Self.Y, Player.Y, 0.03)</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="5840124110082276" title="Player Controls">
+            <sub-events>
+                <event-block sid="130798445833509">
+                    <conditions>
+                        <condition id="5" name="On any finished" sid="1205023979408038" type="Player" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="1610326887083433" type="Player">
+                            <param id="0" name="Animation">&quot;Idle&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="7777451425913136">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="649092735203662" type="Keyboard">
+                            <param id="0" name="Key">39 (Right arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="8Direction" id="7" name="Simulate control" sid="5397321592318619" type="PlayerShadow">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="3048386780221162" type="Player">
+                            <param id="0" name="State">1</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="3330410681332101" type="Player">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="9472870997613191" type="PlayerShadow">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">&quot;Right&quot;</param>
+                        </action>
+                        <action behavior="8Direction" id="4" name="Set max speed" sid="5225347620285004" type="PlayerShadow">
+                            <param id="0" name="Max Speed">100</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="901264642501615">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="1359184976460833" type="Keyboard">
+                            <param id="0" name="Key">37 (Left arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="8Direction" id="7" name="Simulate control" sid="497346110331156" type="PlayerShadow">
+                            <param id="0" name="Control">0</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="9322071926939645" type="Player">
+                            <param id="0" name="State">0</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="8589784672300594" type="Player">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="9113655192227109" type="PlayerShadow">
+                            <param id="0" name="Instance variable">Direction</param>
+                            <param id="1" name="Value">&quot;Left&quot;</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="3647615163834262" type="PlayerShadow">
+                            <param id="0" name="Instance variable">State</param>
+                            <param id="1" name="Value">&quot;Walking&quot;</param>
+                        </action>
+                        <action behavior="8Direction" id="4" name="Set max speed" sid="8593193414586225" type="PlayerShadow">
+                            <param id="0" name="Max Speed">100</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="8410342620208971">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="4706602634090694" type="Keyboard">
+                            <param id="0" name="Key">38 (Up arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="8Direction" id="7" name="Simulate control" sid="6675622796365752" type="PlayerShadow">
+                            <param id="0" name="Control">2</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="4723226734483146" type="PlayerShadow">
+                            <param id="0" name="Instance variable">State</param>
+                            <param id="1" name="Value">&quot;Walking&quot;</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="9945229437360759" type="Player">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="7486456661154779">
+                    <conditions>
+                        <condition id="2" name="Key is down" sid="372762852471887" type="Keyboard">
+                            <param id="0" name="Key">40 (Down arrow)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="8Direction" id="7" name="Simulate control" sid="8009973216397811" type="PlayerShadow">
+                            <param id="0" name="Control">3</param>
+                        </action>
+                        <action id="-10" name="Set value" sid="4456227978031889" type="PlayerShadow">
+                            <param id="0" name="Instance variable">State</param>
+                            <param id="1" name="Value">&quot;Walking&quot;</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="361146039697656" type="Player">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="8190219177706291">
+                    <conditions>
+                        <condition id="7" name="On any key released" sid="876619549026974" type="Keyboard" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="1412920994303228" type="Player">
+                            <param id="0" name="Animation">&quot;Idle&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="9117299690194105">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="4830104498844821" type="Keyboard">
+                            <param id="0" name="Key">90 (Z)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="5772262585088832" type="Player">
+                            <param id="0" name="Animation">&quot;Attack1&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="6874272489344041" title="Attacking Events">
+            <sub-events>
+                <event-block sid="6112205937933259">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="6858733317915498" type="AIEnemy">
+                            <param id="0" name="Object">Player</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="6391937693810094" type="AIEnemy">
+                            <param id="0" name="Animation">&quot;Attack1&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="7612044575182186">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="6765308650915739" type="Player">
+                            <param id="0" name="Object">AIEnemy</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block any="1" sid="3649018465561594">
+                            <conditions>
+                                <condition id="2" name="Is playing" sid="9692585738034171" type="Player">
+                                    <param id="0" name="Animation">&quot;Attack1&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" sid="3281816332759645" type="AIEnemy">
+                                    <param id="0" name="Animation">&quot;Hit&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="-12" name="Subtract from" sid="8952737531132014" type="AIEnemy">
+                                    <param id="0" name="Instance variable">Health</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                                <action id="-12" name="Subtract from" sid="2570446941201703" type="AIEnemy">
+                                    <param id="0" name="Instance variable">Resistance</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="1659069066303162">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="2630300067170116" type="AIEnemy">
+                            <param id="0" name="Object">Player</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block any="1" sid="1710722620166059">
+                            <conditions>
+                                <condition id="2" name="Is playing" sid="2644661749198033" type="AIEnemy">
+                                    <param id="0" name="Animation">&quot;Attack1&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="900156478376285">
+                                    <conditions>
+                                        <condition id="3" name="Compare frame" sid="3774259733858312" type="AIEnemy">
+                                            <param id="0" name="Comparison">0</param>
+                                            <param id="1" name="Number">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" sid="9831606975189938" type="Player">
+                                            <param id="0" name="Animation">&quot;Hit&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-12" name="Subtract from" sid="6717611531938046" type="Player">
+                                            <param id="0" name="Instance variable">Health</param>
+                                            <param id="1" name="Value">0.15</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="9376183357206189" title="Health">
+            <sub-events>
+                <event-block sid="1240558745236318">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="5038255250293452" type="Player">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="6391433812182449" type="Player">
+                            <param id="0" name="Animation">&quot;Liedown&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="8111338699148418">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="345434411352031" type="AIEnemy">
+                            <param id="0" name="Instance variable">Health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" sid="6191021126893751" type="Function">
+                            <param id="0" name="Name">&quot;DestroyEnemy&quot;</param>
+                            <param id="1" name="Parameter {n}"></param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" inactive="1" sid="5183293945569877" title="AI Events">
+            <sub-events>
+                <event-block sid="2053000021637978">
+                    <conditions>
+                        <condition id="5" name="On any finished" sid="3722087298442704" type="AIEnemy" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="434880108807343" type="AIEnemy">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="1586129768070468">
+                    <conditions>
+                        <condition id="-8" name="Compare two values" sid="9113686610166337" type="System">
+                            <param id="0" name="First value">distance(EnemyShadow.X,EnemyShadow.Y,PlayerShadow.X,PlayerShadow.Y)</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Second value">100</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="6718591142243468">
+                            <conditions>
+                                <condition id="-8" name="Compare two values" sid="2487798407889317" type="System">
+                                    <param id="0" name="First value">EnemyShadow.ImagePointY(3)</param>
+                                    <param id="1" name="Comparison">3</param>
+                                    <param id="2" name="Second value">PlayerShadow.ImagePointY(3)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-25" name="Move to bottom" sid="8846419425274383" type="AIEnemy" />
+                            </actions>
+                        </event-block>
+                        <event-block sid="4821859685706957">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="5789446233699119" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-24" name="Move to top" sid="2321846551769195" type="AIEnemy" />
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="4691121813854618">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="9997123216254087" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="5812885837987686" type="AIEnemy">
+                            <param id="0" name="Animation">&quot;Walking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="2429762898004036">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="4224627101706199" type="EnemyShadow">
+                            <param id="0" name="Comparison">2</param>
+                            <param id="1" name="X co-ordinate">PlayerShadow.X</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="7" name="Set mirrored" sid="2989038662409346" type="AIEnemy">
+                            <param id="0" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="6075817735151058">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="2337092342136148" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="7" name="Set mirrored" sid="2970855282656332" type="AIEnemy">
+                            <param id="0" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="6859867901088367">
+            <conditions>
+                <condition id="1" name="Is overlapping another object" sid="2125581755995534" type="PlayerShadow">
+                    <param id="0" name="Object">EndLevel</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Call function" sid="6677624582452302" type="Function">
+                    <param id="0" name="Name">&quot;RestartLevel&quot;</param>
+                    <param id="1" name="Parameter {n}"></param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
